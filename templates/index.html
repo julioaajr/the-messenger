@@ -1,3 +1,20 @@
-<h1>LOGADO</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-<a href="/logout/">logout</a>
+{% block content %}
+
+<h1>Usuarios</h1>
+
+<table border="1" width="50%">
+    {% for item in list %}
+    <tr>
+       <td hidden><b>id:</b> {{ item.id }}</td>
+       <td><a href="/add_friend/?id={{ item.id }}"><b>Usuario:</b> {{ item.username }}</a></td>
+       <td><a href="/add_friend/?id={{ item.id }}"> ADD </a></td>
+       
+    </tr>
+    {% endfor %}
+
+ </table>
+
+{% endblock %}

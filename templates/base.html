@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <title>The Fucking Messenger</title>
+  <meta charset="utf-8">
+ 
+  <!-- Isso é necessário para funcionar a versão mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+ 
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="//assets.locaweb.com.br/locastyle/2.0.6/stylesheets/locastyle.css">
+ 
+</head>
+<body>
+  <!-- CSS -->
+  <!-- Header principal -->
+  <header class="header" role="banner">
+    <div class="container">
+      <span class="control-menu visible-xs ico-menu-2"></span>
+      <!--
+      <span class="control-sidebar visible-xs ico-list"></span>
+      -->
+      <h1 class="project-name"><a href="#"></a></h1>
+      <a href="#" class="help-suggestions ico-question hidden-xs">Ajuda e Sugestões</a>
+ <!--
+      <div class="dropdown hidden-xs">
+        <a href="#" data-toggle="dropdown" class="title-dropdown">Navega</a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <li><a href="#" role="menuitem">Option 1</a></li>
+          <li><a href="#" role="menuitem">Option 2</a></li>
+          <li><a href="#" role="menuitem">Option 3</a></li>
+        </ul>
+      </div>
+  -->
+    </div>
+  </header>
+ 
+  <!-- Menu -->
+  <div class="nav-content">
+    <menu class="menu">
+      <ul class="container">
+        <li><a href="/" class="active ico-home" role="menuitem">Home</a></li>
+
+
+        {% if user.is_authenticated %}
+
+
+
+        <li><a href="#" role="menuitem">Teste</a>
+          <ul>
+            
+  
+            {% for item in amigos %}
+               <li><a href="/delete_produto/?id={{ item.id }}"><b>Usuario:</b> {{ item.user }}</a></li>
+            {% endfor %}
+            </ul>
+          </li>
+
+
+
+
+
+
+        <li><a href="#" role="menuitem">Amigos</a>
+        <ul>
+          
+
+          {% for item in list %}
+             <li><a href="/delete_produto/?id={{ item.id }}"><b>Usuario:</b> {{ item.username }}</a></li>
+          {% endfor %}
+
+          
+            <li><a href="/wpp/">Enviar</a></li>
+            <li><a href="#">Relatórios</a></li>
+          </ul>
+        </li>
+
+        <li><a href="/logout/" role="menuitem">Logout</a></li>
+        {% endif %}
+      </ul>
+    </menu>
+    <h2 class="title-sep visible-xs">Mais</h2>
+    <ul class="nav-mob-list visible-xs">
+      <li><a href="#" class="ico-help-circle">Ajuda e sugestões</a></li>
+    </ul>
+  </div>
+ 
+  <!-- Aqui começa a parte de conteúdo dividido por colunas -->
+
+  <main class="main">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9 content" role="main">
+           <!--Conteúdo da tela principal -->
+           </br> 
+
+          {% block content %}
+
+          {% endblock %}
+          
+        </div>
+      </div>
+    </div>
+  </main>
+ 
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-menu">
+      <nav class="container">
+        <h2 class="title-footer">suporte e ajuda</h2>
+        <ul class="no-liststyle">
+          <li><a href="#" class="bg-customer-support"><span class="visible-lg">Atendimento</span></a></li>
+          <li><a href="#" class="bg-my-tickets"><span class="visible-lg">Meus Chamados</span></a></li>
+          <li><a href="#" class="bg-help-desk"><span class="visible-lg">Central de Ajuda (Wiki)</span></a></li>
+          <li><a href="#" class="bg-statusblog"><span class="visible-lg">Statusblog</span></a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container footer-info">
+      <span class="last-access ico-screen"><strong>Último acesso: </strong>7/8/2011 22:35:49</span>
+      <div class="set-ip"><span class="set-ip"><strong>IP:</strong> 201.87.65.217</span></div>
+      <p class="copy-right">Copyright © 2018-2020 Control System</p>
+    </div>
+  </footer>
+ 
+  <!-- Scripts - Atente-se na ordem das chamadas -->
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+  <script type="text/javascript" src="//assets.locaweb.com.br/locastyle/2.0.6/javascripts/locastyle.js"></script>
+  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -8,6 +8,11 @@
 from django.db import models
 
 
+
+
+
+
+
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
 
@@ -116,3 +121,14 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
+
+
+class Amizade(models.Model):
+    #myid = models.IntegerField(models.DO_NOTHING)
+    #amigo = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    amigo = models.ManyToManyField(AuthUser)
+
+class Amigos(models.Model):
+    myid = models.IntegerField(models.DO_NOTHING)
+    amigo = models.ForeignKey(AuthUser, models.DO_NOTHING)
+
