@@ -2,19 +2,56 @@
 {% load static %}
 
 {% block content %}
-
-<h1>Usuarios</h1>
-
-<table border="1" width="50%">
-    {% for item in list %}
+<h2>AMIGOS</h2>
+<table border="1" width="100%">
+    {% for item in amigos %}
     <tr>
        <td hidden><b>id:</b> {{ item.id }}</td>
-       <td><a href="/add_friend/?id={{ item.id }}"><b>Usuario:</b> {{ item.username }}</a></td>
-       <td><a href="/add_friend/?id={{ item.id }}"> ADD </a></td>
+       <td><a href="/go_msg/?id={{ item.id }}"> {{ item.amigo.username }}</a></td>
+       <td><a href="/del_friend/?id={{ item.id }}"> DEL </a></td>
        
     </tr>
     {% endfor %}
 
  </table>
 
+{% endblock %}
+
+{% block msgs%}
+   <h2>MENSAGENS</h2>
+
+{% endblock %}
+
+{% block busca%}
+   <h2>BUSCA</h2>
+
+   <form action="search/", method="POST">{% csrf_token%}
+
+      <div class="form-group">
+          <input type="text", class="form-control" id="buscar" name="buscaruser" placeholder="Buscar" autofocus>
+      </div>      
+      <div>
+          {% for message in messages %}
+          <div class="alert alert-danger">
+              <strong>ERROR!</strong> {{ message }}
+          </div>
+          {% endfor %}
+          
+      </div>
+
+  </form>
+
+
+
+   <table border="1" width="100%">
+      {% for item in list %}
+      <tr>
+         <td hidden><b>id:</b> {{ item.id }}</td>
+         <td><a href="/go_msg/?id={{ item.id }}"> {{ item.username }}</a></td>
+         <td><a href="/add_friend/?id={{ item.id }}"> ADD </a></td>
+         
+      </tr>
+      {% endfor %}
+  
+   </table>
 {% endblock %}

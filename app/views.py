@@ -8,6 +8,16 @@ from .models import AuthUser, Amizade, Amigos
 from datetime import date
 # Create your views here.
 
+gbusca = ""
+
+@csrf_protect
+@login_required(login_url='/login/')
+def search_user(request):
+    if request.POST:
+         global gbusca
+         gbusca = request.POST.get('buscaruser')
+    return redirect('/')
+
 
 def login_user(request):
     return render(request, 'login.html')
@@ -26,10 +36,30 @@ def submit_login(request):
             messages.error(request, "usuário e senha invalido favor tentar novamente.")
     return redirect('/login/')
 
+
+
+
+@login_required(login_url='/login/')
+def del_friend(request):
+    data = {}
+    data['error'] = []
+    if request.method == 'GET':
+        id_amigo = int(request.GET.get('id'))
+        try:
+            amigos = Amigos.objects.get(id=id_amigo)
+            amigos.delete()
+        except:
+            data['error'].append("Erro ao deletar AMIGO! ")
+            return redirect(request, '/')
+    return redirect('/')
+
+
+
+
+
 @login_required(login_url='/login/')
 def add_friend(request):
     data = {}
-    data['list'] = []
     data['error'] = []
     if request.method == 'GET':
         id_amigo = int(request.GET.get('id'))
@@ -46,15 +76,18 @@ def add_friend(request):
 
 @login_required(login_url='/login/')
 def index(request):
+    global gbusca
+    print (gbusca)
     data = {}
     data['list'] = []
     data['error'] = []
     data['amigos'] =[]
-    print(request.user.username)
     try:
-        #data['amigos'] = Amizade.objects.all()
-        data['list'] = User.objects.all()
-        print(data)
+        data['amigos'] = Amigos.objects.filter(myid = request.user.id)
+        if(gbusca == ""):
+            data['list'] = User.objects.all()
+        else:
+            data['list'] = User.objects.filter(username = gbusca)
 
     except:
          data['error'].append("Erro ao carregar Usuario! ")

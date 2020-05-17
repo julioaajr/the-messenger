@@ -129,6 +129,6 @@ class Amizade(models.Model):
     amigo = models.ManyToManyField(AuthUser)
 
 class Amigos(models.Model):
-    myid = models.IntegerField(models.DO_NOTHING)
+    myid = models.IntegerField()
     amigo = models.ForeignKey(AuthUser, models.DO_NOTHING)
 

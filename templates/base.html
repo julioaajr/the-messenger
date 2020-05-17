@@ -50,24 +50,16 @@
 
         <li><a href="#" role="menuitem">Teste</a>
           <ul>
-            
-  
             {% for item in amigos %}
-               <li><a href="/delete_produto/?id={{ item.id }}"><b>Usuario:</b> {{ item.user }}</a></li>
+               <li><a href="/delete_produto/?id={{ item.id }}"><b>Usuario:</b> {{ item.amigo.username }}</a></li>
             {% endfor %}
             </ul>
           </li>
 
-
-
-
-
-
         <li><a href="#" role="menuitem">Amigos</a>
         <ul>
           
-
-          {% for item in list %}
+         {% for item in list %}
              <li><a href="/delete_produto/?id={{ item.id }}"><b>Usuario:</b> {{ item.username }}</a></li>
           {% endfor %}
 
@@ -92,20 +84,32 @@
   <main class="main">
     <div class="container">
       <div class="row">
-        <div class="col-md-9 content" role="main">
+        <div class="col-md-2 content" role="main">
            <!--Conteúdo da tela principal -->
-           </br> 
 
           {% block content %}
-
           {% endblock %}
           
         </div>
+
+        <div class="col-md-8 content "role="main">
+            {% block msgs %}
+
+            {% endblock %}
+       </div>
+
+
+       <div class="col-md-2 content "role="main">
+        {% block busca %}
+          <P>teste</P>
+        {% endblock %}
+       </div>
+       
       </div>
     </div>
   </main>
  
-  <!-- Footer -->
+  <!-- Footer
   <footer class="footer">
     <div class="footer-menu">
       <nav class="container">
@@ -123,7 +127,7 @@
       <div class="set-ip"><span class="set-ip"><strong>IP:</strong> 201.87.65.217</span></div>
       <p class="copy-right">Copyright © 2018-2020 Control System</p>
     </div>
-  </footer>
+  </footer> -->
  
   <!-- Scripts - Atente-se na ordem das chamadas -->
   <script type="text/javascript" src="//code.jquery.com/jquery-2.0.3.min.js"></script>
