@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+
 <h2>AMIGOS</h2>
 <table border="1" width="100%">
     {% for item in amigos %}
@@ -25,7 +26,7 @@
 {% block busca%}
    <h2>BUSCA</h2>
 
-   <form action="search/", method="POST">{% csrf_token%}
+   <form action="/", method="POST">{% csrf_token%}
 
       <div class="form-group">
           <input type="text", class="form-control" id="buscar" name="buscaruser" placeholder="Buscar" autofocus>
@@ -36,13 +37,9 @@
               <strong>ERROR!</strong> {{ message }}
           </div>
           {% endfor %}
-          
-      </div>
+     </div>
 
   </form>
-
-
-
    <table border="1" width="100%">
       {% for item in list %}
       <tr>

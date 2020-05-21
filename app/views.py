@@ -8,15 +8,14 @@ from .models import AuthUser, Amizade, Amigos
 from datetime import date
 # Create your views here.
 
-gbusca = ""
 
-@csrf_protect
+'''@csrf_protect
 @login_required(login_url='/login/')
 def search_user(request):
     if request.POST:
          global gbusca
          gbusca = request.POST.get('buscaruser')
-    return redirect('/')
+    return redirect('/')'''
 
 
 def login_user(request):
@@ -76,18 +75,16 @@ def add_friend(request):
 
 @login_required(login_url='/login/')
 def index(request):
-    global gbusca
-    print (gbusca)
+    gbusca = request.POST.get('buscaruser')
     data = {}
     data['list'] = []
     data['error'] = []
     data['amigos'] =[]
     try:
         data['amigos'] = Amigos.objects.filter(myid = request.user.id)
-        if(gbusca == ""):
-            data['list'] = User.objects.all()
-        else:
-            data['list'] = User.objects.filter(username = gbusca)
+        if(gbusca != ""):
+            data['list'] = User.objects.filter(username__contains = gbusca)
+            
 
     except:
          data['error'].append("Erro ao carregar Usuario! ")
@@ -105,10 +102,13 @@ def registrar(request):
 def submit_registrar(request):
     if request.POST:
         username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
-        print(password)
-        #user = AuthUser(password=password, username=username, is_superuser=False, first_name='', email='', is_staff=False, date_joined='',last_name='')
-        user = User.objects.create_user(username=username, password=password, is_superuser=1, is_staff=1)
-        user.save()
-
-    return redirect('/login/')
+        repassword = request.POST.get('repassword')
+        if (password == repassword):
+            #user = AuthUser(password=password, username=username, is_superuser=False, first_name='', email='', is_staff=False, date_joined='',last_name='')
+            user = User.objects.create_user(username=username, email= email, password=password, is_superuser=1, is_staff=1)
+            user.save()
+            return redirect('/login/')
+        else:
+            messages.error(request, "usuário e senha invalido favor tentar novamente.")

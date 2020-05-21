@@ -2,37 +2,67 @@
 {% load static %}
 
 {% block content %}
-    <a href="/registrar/">REGISTRAR</a>
-    <div class ="container mt-4">
-        <form action="submit", method="POST">{% csrf_token%}
-            <h2>LOGIN - Fucking Messenger</h2>
-
-            <div class="form-group">
-                <label for="username">Usuario</label>
-                <input type="text", class="form-control" id="username" name="username" placeholder="Username" autofocus>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Senha</label>
-                <input type="password", class="form-control" id="password" name="password" placeholder="Senha">
-            </div>
-            
-            <div>
-                {% for message in messages %}
-                <div class="alert alert-danger">
-                    <strong>ERROR!</strong> {{ message }}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <form action="submit" , method="POST">{% csrf_token%}
+                <h2>LOGIN - Fucking Messenger</h2>
+                <div class="form-group">
+                    <label for="username">Usuario</label>
+                    <input type="text" , class="form-control" id="username" name="username" placeholder="Username"
+                        autofocus>
                 </div>
-                {% endfor %}
-                <button type="submit" class="btn btn-primary">Entrar</button>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" , class="form-control" id="password" name="password" placeholder="Senha">
+                </div>
+                <div>
+                    {% for message in messages %}
+                    <div class="alert alert-danger">
+                        <strong>ERROR!</strong> {{ message }}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    <p></p> <p></p>                
+                    <a href="/recsenha/">ESQUECI MINHA SENHA</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form action="registrar/submit" , method="POST">{% csrf_token%}
+                <h2>REGISTRAR Fucking Messenger</h2>
 
-                <p></p>
-                <a href="url">Esqueci minha senha</a>
+                <div class="form-group">
+                    <label for="username">Usuario</label>
+                    <input type="text" , class="form-control" id="username" name="username" placeholder="Username">
+                </div>
 
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" , class="form-control" id="email" name="email" placeholder="E-mail">
+                </div>
 
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" , class="form-control" id="password" name="password" placeholder="Senha">
+                </div>
 
-            </div>
+                <div class="form-group">
+                    <label for="password">Repita a Senha</label>
+                    <input type="password" , class="form-control" id="repassword" name="repassword" placeholder="Repita a Senha">
+                </div>
 
-        </form>
+                <div>
+                    {% for message in messages %}
+                    <div class="alert alert-danger">
+                        <strong>ERROR!</strong> {{ message }}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </div>
 
+            </form>
+        </div>
     </div>
+</div>
 {% endblock %}
