@@ -124,11 +124,12 @@ class DjangoSession(models.Model):
 
 
 class Amizade(models.Model):
-    #myid = models.IntegerField(models.DO_NOTHING)
-    #amigo = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    amigo = models.ManyToManyField(AuthUser)
+    myUser = models.ForeignKey(AuthUser, models.DO_NOTHING, related_name='user1')
+    amigo = models.ForeignKey(AuthUser, models.DO_NOTHING, related_name='user2')
+    data_add = models.DateTimeField(auto_now_add=True)
+
 
 class Amigos(models.Model):
     myid = models.IntegerField()
     amigo = models.ForeignKey(AuthUser, models.DO_NOTHING)
-
+    data_add = models.DateTimeField(auto_now_add=True)

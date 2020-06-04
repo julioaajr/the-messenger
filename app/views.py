@@ -4,18 +4,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import AuthUser, Amizade, Amigos
+from .models import AuthUser, Amigos, Amizade
 from datetime import date
 # Create your views here.
-
-
-'''@csrf_protect
-@login_required(login_url='/login/')
-def search_user(request):
-    if request.POST:
-         global gbusca
-         gbusca = request.POST.get('buscaruser')
-    return redirect('/')'''
 
 
 def login_user(request):
@@ -43,9 +34,9 @@ def del_friend(request):
     data = {}
     data['error'] = []
     if request.method == 'GET':
-        id_amigo = int(request.GET.get('id'))
+        id_amizade = int(request.GET.get('id'))
         try:
-            amigos = Amigos.objects.get(id=id_amigo)
+            amigos = Amigos.objects.get(id=id_amizade)
             amigos.delete()
         except:
             data['error'].append("Erro ao deletar AMIGO! ")
@@ -64,12 +55,15 @@ def add_friend(request):
         id_amigo = int(request.GET.get('id'))
         id_user = request.user.id
         try:
+            myUser = AuthUser.objects.get(id=id_user)
             amigo = AuthUser.objects.get(id=id_amigo)
-            amigos = Amigos(myid = id_user, amigo = amigo )
+            amizade = Amizade(myUser=myUser, amigo=amigo)
+            amigos = Amigos(myid = id_user, amigo = amigo)
+            amizade.save()
             amigos.save()
         except:
             data['error'].append("Erro ao deletar produto! ")
-            return redirect(request, '/')
+            return redirect('/')
     return redirect('/')
 
 
@@ -80,11 +74,15 @@ def index(request):
     data['list'] = []
     data['error'] = []
     data['amigos'] =[]
+    data['volta_amigos'] = []
     try:
-        data['amigos'] = Amigos.objects.filter(myid = request.user.id)
-        if(gbusca != ""):
-            data['list'] = User.objects.filter(username__contains = gbusca)
-            
+        usuario = AuthUser.objects.get(id = request.user.id)
+        data['amigos'] = Amizade.objects.filter(myUser = usuario)
+        data['volta_amigos'] = Amizade.objects.filter(amigo = usuario)
+        if(gbusca != ''):
+            data['list'] = AuthUser.objects.filter(username__contains = gbusca).exclude(id = request.user.id, amizade__in = data['amigos'].amigo)
+            print(data['amigos'])
+
 
     except:
          data['error'].append("Erro ao carregar Usuario! ")
@@ -106,9 +104,10 @@ def submit_registrar(request):
         password = request.POST.get('password')
         repassword = request.POST.get('repassword')
         if (password == repassword):
-            #user = AuthUser(password=password, username=username, is_superuser=False, first_name='', email='', is_staff=False, date_joined='',last_name='')
             user = User.objects.create_user(username=username, email= email, password=password, is_superuser=1, is_staff=1)
             user.save()
-            return redirect('/login/')
+            return redirect('/login/')                    
+            print('cadastro realiado')
         else:
             messages.error(request, "usuário e senha invalido favor tentar novamente.")
+            return redirect('/login/', data)   

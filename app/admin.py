@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Amizade, Amigos
+from .models import Amigos, Amizade
 
 # Register your models here.
 admin.site.register(Amizade)

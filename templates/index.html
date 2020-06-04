@@ -10,7 +10,13 @@
        <td hidden><b>id:</b> {{ item.id }}</td>
        <td><a href="/go_msg/?id={{ item.id }}"> {{ item.amigo.username }}</a></td>
        <td><a href="/del_friend/?id={{ item.id }}"> DEL </a></td>
-       
+    </tr>
+    {% endfor %}
+    {% for item in volta_amigos %}
+    <tr>
+       <td hidden><b>id:</b> {{ item.id }}</td>
+       <td><a href="/go_msg/?id={{ item.id }}"> {{ item.amigo.username }}</a></td>
+       <td><a href="/del_friend/?id={{ item.id }}"> DEL </a></td>
     </tr>
     {% endfor %}
 
@@ -20,7 +26,10 @@
 
 {% block msgs%}
    <h2>MENSAGENS</h2>
-
+   <textarea cols = "80" rows= "10" readonly></textarea>
+   <form>
+      <textarea cols = "60" rows= "2"></textarea>
+   </form>
 {% endblock %}
 
 {% block busca%}
